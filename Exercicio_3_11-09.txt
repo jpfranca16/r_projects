@@ -1,0 +1,245 @@
+#instalação das bibliotecas necessárias:
+install.packages("readxl")
+install.packages("ggplot2")
+install.packages("plotrix")
+
+#Executando as bibliotecas:
+library(readxl)
+library(ggplot2)
+library(plotrix)
+
+#Executando o dataframe:
+quest = read_excel("C:/Users/joaop/Downloads/questionario.xls")
+head(quest)
+
+
+
+#-----------------------------------------------------------------------------------
+                                    #Questão 1: 
+
+
+#Histograma referente a Peso (Frequência Absoluta):
+hist(quest$Peso,
+     main = 'Histograma de Peso',
+     xlab = 'Peso',
+     ylab = 'Frequência',
+     breaks = 10,
+     freq = TRUE,
+     col = 'red'
+     )
+#Histograma referente a Altura (Frequência Absoluta):
+hist(quest$Alt,
+     main = 'Histograma da Altura',
+     xlab = 'Altura',
+     ylab = 'Frequência',
+     brakes = 10,
+     freq = TRUE,
+     col = 'blue'
+     )
+
+
+#-----------------------------------------------------------------------------------
+                                      #Questão 2: 
+
+
+#Histograma referente a Peso (Frequência Relativa):
+hist(quest$Peso,
+     main = 'Histograma de Peso',
+     xlab = 'Peso',
+     ylab = 'Frequência',
+     breaks = 20,
+     freq = FALSE,
+     col = 'yellow'
+)
+
+#Histograma referente a Altura (Frequência Relativa):
+hist(quest$Alt,
+     main = 'Histograma de Altura',
+     xlab = 'Altura',
+     ylab = 'Frequência',
+     breaks = 20,
+     freq = FALSE,
+     col = 'green'
+)
+
+
+#-----------------------------------------------------------------------------------
+                                      #Questão 3: 
+
+
+#Colocando a curva no histograma referente a variável Peso:
+hist(quest$Peso,
+     main = 'Histograma de Peso',
+     xlab = 'Peso',
+     ylab = 'Frequência',
+     breaks = 20,
+     freq = FALSE,
+     col = 'gray',
+     border = 'red'
+     )
+curve(dnorm(x, mean = mean(quest$Peso),sd = sd(quest$Peso)),
+      add = TRUE,col = 'blue',lwd = 3)
+
+
+
+#-----------------------------------------------------------------------------------
+                                    #Questão 4:
+
+
+hist(quest$Alt,
+     main = 'Histograma de Altura',
+     xlab = 'Altura',
+     ylab = 'Frequência',
+     breaks = 10,
+     freq = FALSE,
+     col = 'white',
+     border = 'blue'
+)
+abline(v = mean(quest$Alt),lwd = 2, lty = 3, col = 'red')
+
+
+
+#-----------------------------------------------------------------------------------
+                                  #Questão 5:
+
+boxplot(quest$Peso,
+        main = 'Boxplot de Peso',
+        col = 'red'
+        )
+
+
+
+#-----------------------------------------------------------------------------------
+                                  #Questão 6:
+
+boxplot(quest$Alt,
+        main = 'Boxplot de Altura',
+        col = 'blue'
+)
+
+
+#-----------------------------------------------------------------------------------
+                                  #Questão 7:
+
+
+dados_homens = subset(quest, Sexo == 'Homem')
+dados_mulheres = subset(quest, Sexo == 'Mulher')
+
+boxplot(quest$Peso~quest$Sexo,
+        main = 'Peso por Sexo',
+        ylab = 'Peso',
+        xlab = 'Sexo',
+        names = c('Homem','Mulher'),
+        col = rainbow(2)
+        )
+points(x = 1, y = mean(dados_homens$Peso),pch=25,bg = 'green',cex = 1.5)
+points(x = 2, y = mean(dados_mulheres$Peso),pch = 22, bg = 'yellow',cex = 1.5)
+
+
+
+#-----------------------------------------------------------------------------------
+                                    #Questão 8:
+
+
+boxplot(quest$Alt~quest$OpTV,
+        main = 'Altura por OpTV',
+        ylab = 'Altura',
+        xlab = 'OpTV',
+        col = rainbow(4),
+        )
+
+
+#-----------------------------------------------------------------------------------
+                                    #Questão 9:
+
+
+frequencias = table(quest$OpTV)
+frequencias
+
+barplot(frequencias,
+        main = 'Gráfico de Barras da Variável OpTV',
+        col = heat.colors(4)
+        )
+
+
+#-----------------------------------------------------------------------------------
+                                    #Questão 10:
+
+
+frequenciaa = table(quest$Fuma,quest$OpTV)
+frequenciaa
+
+barplot(frequenciaa,
+        main = 'Gráfico de Barras por Fuma e OpTV',
+        col = c('red','green'),
+        )
+
+
+#-----------------------------------------------------------------------------------
+                                    #Questão 11:
+
+
+
+#Gráfico de Pizza da Variável Fuma:
+dados = table(quest$Fuma)
+pct = round(dados/sum(dados)*100)
+rotulo1 = c('Não','Sim')
+rotulos = paste(rotulo1,pct)
+rotulos = paste(rotulos,'%',sep = '')
+
+pie3D(pct,
+    labels = rotulos,
+    col = c('red','green'),
+    main = 'Gráfico de Pizza (3D)',
+    explode = 0.1
+    )
+legend('center',rotulo1,cex = 1.0,fill = c('red','green',(length(dados))))
+
+
+
+
+#Gráfico de Pizza da Variável Toler:
+dados2 = table(quest$Toler)
+dados2
+pct2 = round(dados2/sum(dados2)*100)
+rotulo11 = c('I','M','P')
+rotuloss = paste(rotulo1,pct)
+rotuloss = paste(rotulos,'%',sep = '')
+
+pie3D(pct2,
+      labels = rotuloss,
+      col = c('blue','yellow','purple'),
+      main = 'Gráfico de Pizza (3D)',
+      explode = 0.1
+)
+legend('center',rotulo11,cex = 1.0,fill = c('blue','yellow','purple',(length(dados2))))
+
+
+
+
+#Gráfico de Pizza da Variável OpTV:
+dados3 = table(quest$OpTV)
+dados3
+pct3 = round(dados3/sum(dados3)*100)
+rotulo111 = c('B','M','N','R')
+rotulosss = paste(rotulo111,pct)
+rotulosss = paste(rotulosss,'%',sep = '')
+
+pie3D(pct3,
+      labels = rotulosss,
+      col = c('yellow','green','cyan','pink'),
+      main = 'Gráfico de Pizza (3D)',
+      explode = 0.3
+)
+legend('center',rotulo111,cex = 1.0,fill = c('yellow','green','cyan','pink',(length(dados3))))
+
+
+
+
+
+
+
+
+
+
+
