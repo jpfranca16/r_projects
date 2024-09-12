@@ -1,3 +1,4 @@
+#edicao teste
 #instalação das bibliotecas necessárias:
 install.packages("readxl")
 install.packages("ggplot2")
