@@ -1,0 +1,163 @@
+ds = state.x77
+ds
+
+
+#--------------------------------------------------------------------------------
+#Questão 1:
+
+
+str(df)
+
+
+#--------------------------------------------------------------------------------
+#Questão 2:
+
+
+df = data.frame(state.x77)
+head(df)
+
+
+#--------------------------------------------------------------------------------
+#Questão 3:
+
+
+dados_1 = subset(df,df$Population > 4246)
+dados_1$Estado = rownames(dados_1)
+dados_1
+
+  
+#--------------------------------------------------------------------------------    
+#Questão 4:
+
+
+dados_2 = subset(df,df$Population > 4246 & df$Population < 8000)
+dados_2$Estado = rownames(dados_2)
+dados_2
+
+
+#--------------------------------------------------------------------------------
+#Questão 5:
+
+
+vetor_est = rownames(dados_1)
+vetor_est
+
+
+#--------------------------------------------------------------------------------
+#Questão 6:
+
+
+media_populacao = mean(df$Population) 
+dados_3 = subset(df,df$Population > (1.5 * media_populacao))
+vetor_estados = rownames(dados_3)
+vetor_estados
+
+
+#--------------------------------------------------------------------------------
+#Questão 7:
+
+
+expectativa_vida = subset(df,df$Life.Exp > 71.84)
+mediana_populacao = median(df$Population)
+calculo_2x_populacao = 2 * mediana_populacao
+dados_4 = subset(df,df$Population > calculo_2x_populacao & expectativa_vida)
+dados_4$Estado = rownames(dados_4)
+dados_4
+
+
+#--------------------------------------------------------------------------------
+#Questão 8:
+
+
+media_nacional = mean(df$Income)
+expectativa_vida2 = subset(df,df$Life.Exp > 72)
+dados_5 = subset(df,df$Income > media_nacional & expectativa_vida2)
+dados_5$Estado = rownames(dados_5)
+dados_5
+
+
+#--------------------------------------------------------------------------------
+#Questão 9:
+
+
+#Criando a media das variaveis:
+medias_var = colMeans(df)
+
+#Criando a variancias das variaveis:
+variancias_var = apply(df,2,var)
+
+#Adicionando a nova linha do df:
+df = rbind(df,Medias = medias_var,Variancias = variancias_var)
+df
+
+
+#--------------------------------------------------------------------------------
+#Questão 10:
+
+
+#Fazendo a Análise Exploratória de Dados (EAD) com o dataframe (dados_1)
+
+#dados_1:
+
+#Tabela com a estatística descritiva dos dados:
+summary(dados_1)
+
+#Histograma para as variaveis populacao, renda e expectativa de vida:
+
+                  #População
+hist(dados_1$Population,
+     main = 'Histograma da População',
+     xlab = 'População',
+     col = rainbow(5)
+     )
+
+                  #Renda
+hist(dados_1$Income,
+     main = 'Histograma de Renda',
+     xlab = 'Renda',
+     col = rainbow(8)
+     )
+
+                  #Expectativa de vida:
+hist(dados_1$Life.Exp,
+     main = 'Histograma da Expectativa de vida',
+     xlab = 'Idade',
+     col = rainbow(5)
+     )
+
+
+#Gráfico de dispersão:
+
+plot(dados_1$Population,dados_1$Income,
+     main = 'População vs Renda',
+     xlab = 'População',
+     ylab = 'Renda',
+     pch = 16,
+     col = 'red'
+     )
+
+#Gráfico Boxplot:
+
+#População:
+boxplot(dados_1$Population,
+        main = 'Boxplot da população',
+        xlab = 'População',
+        col = 'blue'
+        )
+
+#Renda
+boxplot(dados_1$Income,
+        main = 'Boxplot de Renda',
+        xlab = 'Salário',
+        col = 'orange'
+)
+
+#Expectativa de vida:
+boxplot(dados_1$Life.Exp,
+        main = 'Boxplot da Expectativa de vida',
+        xlab = 'Idade',
+        col = 'green'
+)  
+  
+  
+  
